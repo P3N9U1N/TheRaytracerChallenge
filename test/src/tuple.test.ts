@@ -1,4 +1,4 @@
-import { Tuple } from "../src/tuple"
+import { Tuple } from "../..//raytracer/src/tuple"
 
 
 describe('tuple with w==0', () => {

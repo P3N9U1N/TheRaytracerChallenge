@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "test"
+		},
+		{
+			"path": "spikes/chapter2"
+		},
+		{
+			"path": "raytracer"
+		}
+	],
+	"settings": {}
+}
