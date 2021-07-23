@@ -8,7 +8,7 @@
 				"$tsc"
 			],
 			"group": "build",
-			"label": "tsc: Build – spikes/chapter2/tsconfig.json"
+			"label": "tsc: Build"
 		}
 	]
 }

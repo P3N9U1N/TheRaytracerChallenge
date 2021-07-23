@@ -1,4 +1,4 @@
-import { Tuple } from "../../../raytracer/src/tuple";
+import { Tuple } from "../../raytracer/tuple";
 
 export class Environment {
     gravity:Tuple;

@@ -5,7 +5,7 @@ export class Tuple {
     public w: number;
 
     private static EPSILON: number = 0.00001;
-
+    
     constructor(x: number, y: number, z: number, w: number) {
         this.x = x;
         this.y = y;

@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [  
+
+        {
+            "name": "Launch spikes/chapter2",
+            "program": "${workspaceFolder}/out/spikes/chapter2/test.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "preLaunchTask": "tsc: Build"
+        },
+
+        {
+            "name": "Launch spikes/chapter3",
+            "program": "${workspaceFolder}/out/spikes/chapter3/test.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "preLaunchTask": "tsc: Build"
+        }
+
+    ],
+    "compounds": []
+
+}

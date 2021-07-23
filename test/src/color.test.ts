@@ -1,4 +1,4 @@
-import { Color } from "../../raytracer/src/color";
+import { Color } from "../../raytracer/color";
 
 test("Constructor", () => {
     expect(new Color(-0.5, 0.4, 1.7)).toEqual({ red: -0.5, green: 0.4, blue: 1.7 });
