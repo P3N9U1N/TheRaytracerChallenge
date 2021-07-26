@@ -159,6 +159,156 @@ export class Matrix4x4 extends Matrix
         ]
     );
 
+    public static translation(x:number,y:number,z:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        m.data[0][0]=1;
+        m.data[1][0]=0;
+        m.data[2][0]=0;
+        m.data[3][0]=0;
+
+        m.data[0][1]=0;
+        m.data[1][1]=1;
+        m.data[2][1]=0;
+        m.data[3][1]=0;
+
+        m.data[0][2]=0;
+        m.data[1][2]=0;
+        m.data[2][2]=1;
+        m.data[3][2]=0;
+
+        m.data[0][3]=x;
+        m.data[1][3]=y;
+        m.data[2][3]=z;
+        m.data[3][3]=1;
+        return m;
+    }
+    public static rotationX(radians:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        var cos=Math.cos(radians);
+        var sin= Math.sin(radians);
+        m.data[0][0]=1;
+        m.data[1][0]=0;
+        m.data[2][0]=0;
+        m.data[3][0]=0;
+
+        m.data[0][1]=0;
+        m.data[1][1]=cos;
+        m.data[2][1]=sin;
+        m.data[3][1]=0;
+
+        m.data[0][2]=0;
+        m.data[1][2]=-sin;
+        m.data[2][2]=cos;
+        m.data[3][2]=0;
+
+        m.data[0][3]=0;
+        m.data[1][3]=0;
+        m.data[2][3]=0;
+        m.data[3][3]=1;
+        return m;
+    }
+    public static rotationY(radians:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        var cos=Math.cos(radians);
+        var sin= Math.sin(radians);
+        m.data[0][0]=cos;
+        m.data[1][0]=0;
+        m.data[2][0]=-sin;
+        m.data[3][0]=0;
+
+        m.data[0][1]=0;
+        m.data[1][1]=1;
+        m.data[2][1]=0;
+        m.data[3][1]=0;
+
+        m.data[0][2]=sin;
+        m.data[1][2]=0;
+        m.data[2][2]=cos;
+        m.data[3][2]=0;
+
+        m.data[0][3]=0;
+        m.data[1][3]=0;
+        m.data[2][3]=0;
+        m.data[3][3]=1;
+        return m;
+    }
+    public static rotationZ(radians:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        var cos=Math.cos(radians);
+        var sin= Math.sin(radians);
+        m.data[0][0]=cos;
+        m.data[1][0]=sin;
+        m.data[2][0]=0;
+        m.data[3][0]=0;
+
+        m.data[0][1]=-sin;
+        m.data[1][1]=cos;
+        m.data[2][1]=0;
+        m.data[3][1]=0;
+
+        m.data[0][2]=0;
+        m.data[1][2]=0;
+        m.data[2][2]=1;
+        m.data[3][2]=0;
+
+        m.data[0][3]=0;
+        m.data[1][3]=0;
+        m.data[2][3]=0;
+        m.data[3][3]=1;
+        return m;
+    }
+    public static scaling(x:number,y:number,z:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        m.data[0][0]=x;
+        m.data[1][0]=0;
+        m.data[2][0]=0;
+        m.data[3][0]=0;
+
+        m.data[0][1]=0;
+        m.data[1][1]=y;
+        m.data[2][1]=0;
+        m.data[3][1]=0;
+
+        m.data[0][2]=0;
+        m.data[1][2]=0;
+        m.data[2][2]=z;
+        m.data[3][2]=0;
+
+        m.data[0][3]=0;
+        m.data[1][3]=0;
+        m.data[2][3]=0;
+        m.data[3][3]=1;
+        return m;
+    }
+    public static shearing(xy:number,xz:number,yx:number,yz:number,zx:number,zy:number):Matrix4x4
+    {
+        var m = new Matrix4x4();
+        m.data[0][0]=1;
+        m.data[1][0]=yx;
+        m.data[2][0]=zx;
+        m.data[3][0]=0;
+
+        m.data[0][1]=xy;
+        m.data[1][1]=1;
+        m.data[2][1]=zy;
+        m.data[3][1]=0;
+
+        m.data[0][2]=xz;
+        m.data[1][2]=yz;
+        m.data[2][2]=1;
+        m.data[3][2]=0;
+
+        m.data[0][3]=0;
+        m.data[1][3]=0;
+        m.data[2][3]=0;
+        m.data[3][3]=1;
+        return m;
+    }
     constructor(matrix: Array<Array<number>>)
     constructor()
     constructor(matrix?: Array<Array<number>>) 

@@ -22,6 +22,17 @@
             ],
             "type": "pwa-node",
             "preLaunchTask": "tsc: Build"
+        },
+
+        {
+            "name": "Launch spikes/chapter4",
+            "program": "${workspaceFolder}/out/spikes/chapter4/test.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "preLaunchTask": "tsc: Build"
         }
 
     ],

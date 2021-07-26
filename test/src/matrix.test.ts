@@ -423,3 +423,208 @@ test("Multiplying a product by its inverse",
     expect( c.multiply(b.inverse()).equals(a)).toBeTruthy();
 }
 );
+
+test("Multiplying by the translation matrix",
+()=>
+{
+    var transform= Matrix4x4.translation(5,-3,2);
+    var p= Tuple.point(-3,4,5);
+ 
+    var p2 = transform.multiply(p);   
+
+    expect( p2.equals(Tuple.point(2,1,7) )).toBeTruthy();
+}
+);
+test("Multiplying by the inverse of a translation matrix",
+()=>
+{
+    var transform= Matrix4x4.translation(5,-3,2);
+    var inv= transform.inverse();
+ 
+    var p = Tuple.point(-3,4,5);   
+    var c =inv.multiply(p);
+    expect( c.equals(Tuple.point(-8,7,3) )).toBeTruthy();
+}
+);
+test("Translation does not affect vectors",
+()=>
+{
+    var transform= Matrix4x4.translation(5,-3,2);
+
+    var v = Tuple.vector(-3,4,5);   
+    var c =transform.multiply(v);
+    expect( c.equals(c )).toBeTruthy();
+}
+);
+test("A scaling matrix applied to a point",
+()=>
+{
+    var transform= Matrix4x4.scaling(2,3,4);
+
+    var p = Tuple.point(-4,6,8);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(-8,18,32) )).toBeTruthy();
+}
+);
+test("A scaling matrix applied to a vector",
+()=>
+{
+    var transform= Matrix4x4.scaling(2,3,4);
+
+    var p = Tuple.vector(-4,6,8);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.vector(-8,18,32) )).toBeTruthy();
+}
+);
+
+test("Multiplying by the inverse of a scaling matrix",
+()=>
+{
+    var transform= Matrix4x4.scaling(2,3,4);
+
+    var p = Tuple.vector(-4,6,8);   
+    var c =transform.inverse().multiply(p);
+    expect( c.equals(Tuple.vector(-2,2,2) )).toBeTruthy();
+}
+);
+
+test("Reflection is scaling ba a negative value",
+()=>
+{
+    var transform= Matrix4x4.scaling(-1,1,1);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(-2,3,4) )).toBeTruthy();
+}
+);
+
+test("Rotation a point around the x-axis",
+()=>
+{
+    var p = Tuple.point(0,1,0);   
+    var halfQuarter= Matrix4x4.rotationX(Math.PI/4);
+    var fullQuarter= Matrix4x4.rotationX(Math.PI/2);   
+    expect( halfQuarter.multiply(p).equals(Tuple.point(0,Math.sqrt(2)/2, Math.sqrt(2)/2))).toBeTruthy();
+    expect( fullQuarter.multiply(p).equals(Tuple.point(0,0,1))).toBeTruthy();
+}
+);
+test("The inverse of an x-rotation totates in the opposite direction",
+()=>
+{
+    var p = Tuple.point(0,1,0);   
+    var halfQuarter= Matrix4x4.rotationX(Math.PI/4);
+    var inv=halfQuarter.inverse();
+    expect( inv.multiply(p).equals(Tuple.point(0,Math.sqrt(2)/2, -Math.sqrt(2)/2))).toBeTruthy();
+   
+}
+);
+test("Rotation a point around the y-axis",
+()=>
+{
+    var p = Tuple.point(0,0,1);   
+    var halfQuarter= Matrix4x4.rotationY(Math.PI/4);
+    var fullQuarter= Matrix4x4.rotationY(Math.PI/2);   
+    expect( halfQuarter.multiply(p).equals(Tuple.point(Math.sqrt(2)/2,0, Math.sqrt(2)/2))).toBeTruthy();
+    expect( fullQuarter.multiply(p).equals(Tuple.point(1,0,0))).toBeTruthy();
+}
+);
+test("Rotation a point around the z-axis",
+()=>
+{
+    var p = Tuple.point(0,1,0);   
+    var halfQuarter= Matrix4x4.rotationZ(Math.PI/4);
+    var fullQuarter= Matrix4x4.rotationZ(Math.PI/2);   
+    expect( halfQuarter.multiply(p).equals(Tuple.point(-Math.sqrt(2)/2, Math.sqrt(2)/2,0))).toBeTruthy();
+    expect( fullQuarter.multiply(p).equals(Tuple.point(-1,0,0))).toBeTruthy();
+}
+);
+test("A shearing transformation moves x in proportion to y",
+()=>
+{
+    var transform= Matrix4x4.shearing(1,0,0,0,0,0);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(5,3,4) )).toBeTruthy();
+}
+);
+test("A shearing transformation moves x in proportion to z",
+()=>
+{
+    var transform= Matrix4x4.shearing(0,1,0,0,0,0);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(6,3,4) )).toBeTruthy();
+}
+);
+test("A shearing transformation moves y in proportion to x",
+()=>
+{
+    var transform= Matrix4x4.shearing(0,0,1,0,0,0);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(2,5,4) )).toBeTruthy();
+}
+);
+test("A shearing transformation moves y in proportion to z",
+()=>
+{
+    var transform= Matrix4x4.shearing(0,0,0,1,0,0);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(2,7,4) )).toBeTruthy();
+}
+);
+
+test("A shearing transformation moves z in proportion to x",
+()=>
+{
+    var transform= Matrix4x4.shearing(0,0,0,0,1,0);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(2,3,6) )).toBeTruthy();
+}
+);
+test("A shearing transformation moves z in proportion to y",
+()=>
+{
+    var transform= Matrix4x4.shearing(0,0,0,0,0,1);
+
+    var p = Tuple.point(2,3,4);   
+    var c =transform.multiply(p);
+    expect( c.equals(Tuple.point(2,3,7) )).toBeTruthy();
+}
+);
+test("Individual transformations are applied in sequence",
+()=>
+{
+   
+
+    var p = Tuple.point(1,0,1);   
+    var a=Matrix4x4.rotationX(Math.PI/2);
+    var b=Matrix4x4.scaling(5,5,5);
+    var c =Matrix4x4.translation(10,5,7);
+    var p2=a.multiply(p);
+    expect( p2.equals(Tuple.point(1,-1,0) )).toBeTruthy();
+    var p3=b.multiply(p2);
+    expect( p3.equals(Tuple.point(5,-5,0) )).toBeTruthy();
+    var p4= c.multiply(p3);
+    expect( p4.equals(Tuple.point(15,0,7) )).toBeTruthy();
+}
+);
+test("Chained transformations must be applied in reverse order",
+()=>
+{
+    var p = Tuple.point(1,0,1);   
+    var a=Matrix4x4.rotationX(Math.PI/2);
+    var b=Matrix4x4.scaling(5,5,5);
+    var c =Matrix4x4.translation(10,5,7);
+    var t=c.multiply(b).multiply(a);
+    expect(t.multiply(p).equals(Tuple.point(15,0,7))).toBeTruthy();
+}
+);
