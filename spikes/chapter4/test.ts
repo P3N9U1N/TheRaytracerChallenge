@@ -20,4 +20,4 @@ for (var i=0;i<12;i++)
     c.writePixel(screenCoordinates.x,screenCoordinates.y,color);   
     console.log(pos.x+" "+pos.y)
 }
-fs.writeFileSync("picture2.ppm" ,c.toPpm());
+fs.writeFileSync("picture.ppm" ,c.toPpm());

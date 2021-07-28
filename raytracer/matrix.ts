@@ -392,6 +392,28 @@ export class Matrix4x4 extends Matrix
                 a03*-(a10*(a21*a32-a22*a31)+a11*-(a20*a32-a22*a30)+a12*(a20*a31-a21*a30)));        
     }
     
+    clone():Matrix4x4
+    {
+        var m = new Matrix4x4();
+        m.data[0][0]=this.data[0][0];
+        m.data[0][1]=this.data[0][1];
+        m.data[0][2]=this.data[0][2];
+        m.data[0][3]=this.data[0][3];
+        m.data[1][0]=this.data[1][0];
+        m.data[1][1]=this.data[1][1];
+        m.data[1][2]=this.data[1][2];
+        m.data[1][3]=this.data[1][3];
+        m.data[2][0]=this.data[2][0];
+        m.data[2][1]=this.data[2][1];
+        m.data[2][2]=this.data[2][2];
+        m.data[2][3]=this.data[2][3];
+        m.data[3][0]=this.data[3][0];
+        m.data[3][1]=this.data[3][1];
+        m.data[3][2]=this.data[3][2];
+        m.data[3][3]=this.data[3][3];
+        return m;
+    }
+
     multiply(matrix: Matrix4x4): Matrix4x4;
     multiply(tuple: Tuple): Tuple;
     multiply(a:any):any
