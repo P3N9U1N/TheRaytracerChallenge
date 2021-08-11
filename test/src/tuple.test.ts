@@ -16,7 +16,7 @@ describe('tuple with w==1', () => {
     it('should not be a vector', () => {
         expect(tuple.isVector()).toBeFalsy();
     })
-    it('should be a point', () => {
+it('should be a point', () => {
         expect(tuple.isPoint()).toBeTruthy();
     })
 }
@@ -75,5 +75,21 @@ test("cross product", () => {
     var b = Tuple.vector(2, 3, 4);
     expect(a.cross(b)).toEqual(Tuple.vector(-1, 2, -1));
     expect(b.cross(a)).toEqual(Tuple.vector(1, -2, 1));
+}
+);
+
+test("Reflecting a vector approaching at 45 degree", () => {
+    var v = Tuple.vector(1, -1, 0);
+    var n = Tuple.vector(0, 1, 0);
+    var r = v.reflect(n);
+    expect(r.equals(Tuple.vector(1,1,0) ) ).toBeTruthy();
+}
+);
+
+test("Reflecting a vector off a slanted surface", () => {
+    var v = Tuple.vector(0, -1, 0);
+    var n = Tuple.vector( Math.sqrt(2)/2 , Math.sqrt(2)/2, 0);
+    var r = v.reflect(n);
+    expect(r.equals(Tuple.vector(1,0,0) ) ).toBeTruthy();
 }
 );

@@ -2,14 +2,17 @@ import {Ray} from "./ray"
 import { Tuple } from "./tuple";
 import { Intersection, Intersections } from "./intersection";
 import { Matrix4x4 } from "./matrix";
+import { Material } from "./material";
 export class Sphere
 {
    id:number;
-   transform:Matrix4x4
-   constructor(id:number,transform?:Matrix4x4)
+   transform:Matrix4x4;
+   material:Material;
+   constructor(id:number,transform?:Matrix4x4,material?:Material)
    {
      this.id=id;
-     this.transform= transform ?? Matrix4x4.IDENTITY_MATRIX.clone();    
+     this.transform= transform ?? Matrix4x4.IDENTITY_MATRIX.clone(); 
+     this.material=material?? new Material();   
    }
    intersect(ray:Ray,intersections?: Intersections ):Intersections
    {
@@ -32,4 +35,14 @@ export class Sphere
      return intersections;
    }
 
+   normalAt(p:Tuple):Tuple
+   {
+     var inverseTransform=this.transform.inverse();
+     var objectNormal=inverseTransform.multiply(p);
+     objectNormal.w=0;
+     var worldNormal=inverseTransform.transpose().multiply(objectNormal);
+     worldNormal.w=0;
+
+     return worldNormal.normalize();     
+   }
 }

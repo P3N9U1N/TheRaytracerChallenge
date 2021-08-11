@@ -73,6 +73,20 @@ export class Matrix {
         return code;
     }
 
+
+    transpose() :string
+    {
+        var code="";
+        for (var y = 0; y < this.size; y++) {
+            for (var x = y; x < this.size; x++) {
+               code+= "swap=  this.data["+y+"]["+x+"];\n";                
+               code+= "matrix.data["+y+"]["+x+"] = this.data["+x+"]["+y+"];\n";
+               code+= "matrix.data["+x+"]["+y+"] = swap;\n";
+            }
+        }
+        return code;
+    }
+
     inverse():string
     {
        var code="";
@@ -138,4 +152,4 @@ var m2= new Matrix(2);
 var m3= new Matrix(3);   
 var m7= new Matrix(7);   
 //console.log(m4.getHeader());
-console.log(m4.multiply());
+console.log(m4.transpose());

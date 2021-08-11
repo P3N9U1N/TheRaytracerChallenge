@@ -4,6 +4,9 @@ export class Color {
     public blue: number;
     
     private static EPSILON: number = 0.00001;
+    
+    public static BLACK= new Color(0,0,0);
+    public static WHITE= new Color(1,1,1);
 
     constructor(red: number, green: number, blue: number) {
         this.red = red;
@@ -33,5 +36,9 @@ export class Color {
         return Math.abs(this.red - color.red) < Color.EPSILON
             && Math.abs(this.green - color.green) < Color.EPSILON
             && Math.abs(this.blue - color.blue) < Color.EPSILON;
+    }
+    clone()
+    {
+        return new Color(this.red,this.green,this.blue);
     }
 }

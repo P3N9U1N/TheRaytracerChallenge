@@ -49,7 +49,11 @@ export class Tuple {
             this.x * tuple.y - this.y * tuple.x
         );
     }
-
+    
+    reflect(normal:Tuple ):Tuple
+    {
+      return this.substract(normal.multiply(2*this.dot(normal)));
+    }
     public equals(tuple: Tuple) {
         return Math.abs(this.x - tuple.x) < Tuple.EPSILON
             && Math.abs(this.y - tuple.y) < Tuple.EPSILON
@@ -61,5 +65,7 @@ export class Tuple {
     static vector(x: number, y: number, z: number): Tuple {
         return new Tuple(x, y, z, 0);
     }
-
+    clone(): Tuple {
+        return new Tuple(this.x, this.y, this.z, this.w);
+    }
 }

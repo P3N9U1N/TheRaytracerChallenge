@@ -324,6 +324,43 @@ export class Matrix4x4 extends Matrix
           super(4 ,4);
         }
     }
+    transpose():Matrix4x4
+    {
+        var swap:number;
+        var matrix=new Matrix4x4();
+        swap=  this.data[0][0];
+        matrix.data[0][0] = this.data[0][0];
+        matrix.data[0][0] = swap;
+        swap=  this.data[0][1];
+        matrix.data[0][1] = this.data[1][0];
+        matrix.data[1][0] = swap;
+        swap=  this.data[0][2];
+        matrix.data[0][2] = this.data[2][0];
+        matrix.data[2][0] = swap;
+        swap=  this.data[0][3];
+        matrix.data[0][3] = this.data[3][0];
+        matrix.data[3][0] = swap;
+        swap=  this.data[1][1];
+        matrix.data[1][1] = this.data[1][1];
+        matrix.data[1][1] = swap;
+        swap=  this.data[1][2];
+        matrix.data[1][2] = this.data[2][1];
+        matrix.data[2][1] = swap;
+        swap=  this.data[1][3];
+        matrix.data[1][3] = this.data[3][1];
+        matrix.data[3][1] = swap;
+        swap=  this.data[2][2];
+        matrix.data[2][2] = this.data[2][2];
+        matrix.data[2][2] = swap;
+        swap=  this.data[2][3];
+        matrix.data[2][3] = this.data[3][2];
+        matrix.data[3][2] = swap;
+        swap=  this.data[3][3];
+        matrix.data[3][3] = this.data[3][3];
+        matrix.data[3][3] = swap;
+        return matrix;
+    }
+
     inverse():Matrix4x4
     {
         var m = new Matrix4x4();
