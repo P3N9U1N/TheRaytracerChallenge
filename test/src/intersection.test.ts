@@ -1,6 +1,6 @@
-import { Intersection, Intersections } from "../../raytracer/intersection";
-import { Sphere } from "../../raytracer/sphere";
-import { Tuple } from "../../raytracer/tuple";
+import { Intersection, Intersections } from "raytracer/intersection";
+import { Sphere } from "raytracer/sphere";
+import { Tuple } from "raytracer/tuple";
 
 describe("Intersections",
 ()=>

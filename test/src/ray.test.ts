@@ -1,6 +1,6 @@
-import { Tuple } from "../../raytracer/tuple";
-import { Ray } from "../../raytracer/ray";
-import { Matrix4x4 } from "../../raytracer/matrix";
+import { Tuple } from "raytracer/tuple";
+import { Ray } from "raytracer/ray";
+import { Matrix4x4 } from "raytracer/matrix";
 test("Constructor",
     () => {
         var origin = Tuple.point(1, 2, 3);

@@ -1,5 +1,5 @@
-import { Matrix, Matrix2x2, Matrix3x3, Matrix4x4 } from "../../raytracer/matrix"
-import { Tuple } from "../../raytracer/tuple";
+import { Matrix, Matrix2x2, Matrix3x3, Matrix4x4 } from "raytracer/matrix"
+import { Tuple } from "raytracer/tuple";
 
 test("Constructing a matrix",
 ()=>

@@ -1,5 +1,5 @@
 {
-  "name": "spikes",
+  "name": "raytracer",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -8,10 +8,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@types/node": "^16.3.3",
-    "raytracer":"*"
-  },
   "exports": {
     "./*": "./dist/*.js"
   }

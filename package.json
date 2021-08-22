@@ -1,0 +1,11 @@
+
+{
+    "name": "the-raytracer-challenge",
+    "version": "1.0.0",
+    "author": "",
+    "license": "MIT",
+    "workspaces": [
+      "./raytracer",
+      "./spikes"
+    ]
+  }

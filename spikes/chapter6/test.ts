@@ -1,12 +1,11 @@
-import { Tuple } from "../../raytracer/tuple";
-import { Canvas } from "../../raytracer/canvas";
-import { Color } from "../../raytracer/color";
-import { Sphere } from "../../raytracer/sphere";
+import { Tuple } from "raytracer/tuple";
+import { Canvas } from "raytracer/canvas";
+import { Color } from "raytracer/color";
+import { Sphere } from "raytracer/sphere";
 import * as fs from "fs";
-import { Matrix,Matrix4x4 } from "../../raytracer/matrix";
-import { Ray } from "../../raytracer/ray";
-import { Material } from "../../raytracer/material";
-import { PointLight } from "../../raytracer/pointLight";
+import { Ray } from "raytracer/ray";
+import { Material } from "raytracer/material";
+import { PointLight } from "raytracer/pointLight";
 
 
 

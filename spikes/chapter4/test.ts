@@ -1,8 +1,8 @@
-import { Tuple } from "../../raytracer/tuple";
-import { Canvas } from "../../raytracer/canvas";
-import { Color } from "../../raytracer/color";
+import { Tuple } from "raytracer/tuple";
+import { Canvas } from "raytracer/canvas";
+import { Color } from "raytracer/color";
 import * as fs from "fs";
-import { Matrix,Matrix4x4 } from "../../raytracer/matrix";
+import { Matrix,Matrix4x4 } from "raytracer/matrix";
 
 
 

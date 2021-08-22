@@ -1,8 +1,8 @@
-import { Tuple } from "../../raytracer/tuple";
+import { Tuple } from "raytracer/tuple";
 import { Projectile } from "./projectile";
 import { Environment } from "./environment";
-import { Canvas } from "../../raytracer/canvas";
-import { Color } from "../../raytracer/color";
+import { Canvas } from "raytracer/canvas";
+import { Color } from "raytracer/color";
 import * as fs from "fs";
 
 function tick(env:Environment,proj:Projectile ):Projectile

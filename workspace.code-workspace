@@ -1,16 +1,18 @@
 {
 	"folders": [
 		{
-			"path": "."
-		},
-		{
-			"path": "test"
+			"path": "test/src",
+			"name": "test"
 		},
 		{
 			"path": "spikes"
 		},
 		{
-			"path": "raytracer"
+			"path": "raytracer/src",
+			"name": "raytracer"
+		},
+		{
+			"path": "."
 		}
 	],
 	"settings": {}

@@ -1,9 +1,9 @@
-import { Color } from "../../raytracer/color";
-import { Material } from "../../raytracer/material";
-import { Matrix4x4 } from "../../raytracer/matrix";
-import { PointLight } from "../../raytracer/pointLight";
-import { Sphere } from "../../raytracer/sphere";
-import { Tuple } from "../../raytracer/tuple";
+import { Color } from "raytracer/color";
+import { Material } from "raytracer/material";
+import { Matrix4x4 } from "raytracer/matrix";
+import { PointLight } from "raytracer/pointLight";
+import { Sphere } from "raytracer/sphere";
+import { Tuple } from "raytracer/tuple";
 
 export class World
 {  

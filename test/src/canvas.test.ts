@@ -1,6 +1,6 @@
 global.ImageData = require('@canvas/image-data');//Mock browser ImageData
-import { Canvas } from "../../raytracer/canvas"
-import { Color } from "../../raytracer/color";
+import { Canvas } from "raytracer/canvas"
+import { Color } from "raytracer/color";
 
 
 test("constructor", () => {

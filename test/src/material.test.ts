@@ -1,7 +1,7 @@
-import { Material } from "../../raytracer/material";
-import { Tuple } from "../../raytracer/tuple";
-import { PointLight } from "../../raytracer/pointLight";
-import { Color } from "../../raytracer/color";
+import { Material } from "raytracer/material";
+import { Tuple } from "raytracer/tuple";
+import { PointLight } from "raytracer/pointLight";
+import { Color } from "raytracer/color";
 var m:Material;
 var position:Tuple;
 

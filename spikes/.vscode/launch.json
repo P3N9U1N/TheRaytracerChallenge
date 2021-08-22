@@ -4,57 +4,80 @@
 
         {
             "name": "Launch spikes/chapter2",
-            "program": "${workspaceFolder}/out/spikes/chapter2/test.js",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/chapter2/test.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "preLaunchTask": "tsc: Build"
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
         },
 
         {
             "name": "Launch spikes/chapter3",
-            "program": "${workspaceFolder}/out/spikes/chapter3/test.js",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/chapter3/test.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "preLaunchTask": "tsc: Build"
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
         },
 
         {
             "name": "Launch spikes/chapter4",
-            "program": "${workspaceFolder}/out/spikes/chapter4/test.js",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/chapter4/test.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "preLaunchTask": "tsc: Build"
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
         },
 
         {
             "name": "Launch spikes/chapter5",
-            "program": "${workspaceFolder}/out/spikes/chapter5/test.js",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/chapter5/test.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "preLaunchTask": "tsc: Build"
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
         },
 
         {
             "name": "Launch spikes/chapter6",
-            "program": "${workspaceFolder}/out/spikes/chapter6/test.js",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/chapter6/test.js",
+         
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "preLaunchTask": "tsc: Build"
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
+  
+         
         }
 
     ],
