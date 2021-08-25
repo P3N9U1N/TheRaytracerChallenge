@@ -2,7 +2,7 @@ import { Color } from "./color";
 
 export class Canvas 
 {  
-   data:number[]; 
+   data:Float64Array;
    width:number;
    height:number;
 
@@ -10,7 +10,7 @@ export class Canvas
    {
      this.width=width;
      this.height=height;
-     this.data = new Array<number>(width*height*3);
+     this.data = new Float64Array(width*height*3);
      for (var i=0;i<this.data.length;i++)
      {
          this.data[i]=0;

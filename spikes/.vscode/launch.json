@@ -1,6 +1,23 @@
 {
     "version": "0.2.0",
     "configurations": [  
+        {
+            "name": "Launch benchmarks",
+            "program": "${workspaceFolder}/../node_modules/spikes/dist/benchmarks/test.js",
+         
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "preLaunchTask": "tsc: Build",
+            "outFiles": [
+                "${workspaceFolder}/../spikes/**/*.js",
+                "${workspaceFolder}/../raytracer/**/*.js"
+            ],
+  
+         
+        },
 
         {
             "name": "Launch spikes/chapter2",

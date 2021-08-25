@@ -7,13 +7,15 @@ export class Color {
     
     public static BLACK= new Color(0,0,0);
     public static WHITE= new Color(1,1,1);
-
-    constructor(red: number, green: number, blue: number) {
+    constructor()
+    constructor(red: number, green: number, blue: number)
+    constructor(red?: number, green?: number, blue?: number) {
         this.red = red;
         this.green = green;
         this.blue = blue;
 
     }
+
 
     public add(color: Color): Color {
         return new Color(this.red + color.red, this.green + color.green, this.blue + color.blue)

@@ -79,9 +79,9 @@ export class Matrix {
         var code="";
         for (var y = 0; y < this.size; y++) {
             for (var x = y; x < this.size; x++) {
-               code+= "swap=  this.data["+y+"]["+x+"];\n";                
+               if (x!=y) code+= "swap=  this.data["+y+"]["+x+"];\n";                
                code+= "matrix.data["+y+"]["+x+"] = this.data["+x+"]["+y+"];\n";
-               code+= "matrix.data["+x+"]["+y+"] = swap;\n";
+               if (x!=y) code+= "matrix.data["+x+"]["+y+"] = swap;\n";
             }
         }
         return code;
@@ -111,7 +111,8 @@ export class Matrix {
             for (var x = 0; x < this.size; x++) {
                 var sum = "";
                 for (var r = 0; r < this.size; r++) {
-                    sum += (r==0?"":"+")+ "matrix.data["+r+"]["+x+"]"+ "* this.data["+y+"]["+r+"]";
+                   // sum += (r==0?"":"+")+ "matrix.data["+r+"]["+x+"]"+ "* this.data["+y+"]["+r+"]";
+                   sum += (r==0?"":"+")+ "matrix.data["+r+"]["+x+"]"+ "* a"+y+""+r;
                 }
                 code+= "m.data["+y+"]["+x+"]=" +sum+";\n";
             }
@@ -151,5 +152,5 @@ var m2= new Matrix(2);
 
 var m3= new Matrix(3);   
 var m7= new Matrix(7);   
-//console.log(m4.getHeader());
-console.log(m4.transpose());
+console.log(m4.getHeader());
+console.log(m4.multiply());

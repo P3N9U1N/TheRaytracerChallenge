@@ -25,7 +25,6 @@ shape.material.color=new Color(1,0.2,1);
 
 var light = new PointLight(Tuple.point(-10,10,-10),Color.WHITE.clone());
 
-
 for (var y=0;y<c.height;y++)
 {
     var worldY=half-pixelSize*y;

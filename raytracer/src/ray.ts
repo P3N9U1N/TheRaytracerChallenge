@@ -19,6 +19,7 @@ export class Ray
     {
      var direction= matrix.multiply(this.direction);
      var origin= matrix.multiply(this.origin);
+     
      var ray=new Ray(origin,direction);
      return ray;
     }

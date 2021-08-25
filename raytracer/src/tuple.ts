@@ -6,7 +6,9 @@ export class Tuple {
 
     private static EPSILON: number = 0.00001;
     
-    constructor(x: number, y: number, z: number, w: number) {
+    constructor()
+    constructor(x: number, y: number, z: number, w: number)
+    constructor(x?: number, y?: number, z?: number, w?: number) {
         this.x = x;
         this.y = y;
         this.z = z;

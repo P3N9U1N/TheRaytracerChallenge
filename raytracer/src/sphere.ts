@@ -8,6 +8,9 @@ export class Sphere
    id:number;
    transform:Matrix4x4;
    material:Material;
+   private static tempMatrix1= new Matrix4x4();
+   private static tempMatrix2= new Matrix4x4();
+
    constructor(id:number,transform?:Matrix4x4,material?:Material)
    {
      this.id=id;
@@ -16,7 +19,7 @@ export class Sphere
    }
    intersect(ray:Ray,intersections?: Intersections ):Intersections
    {
-     ray=ray.transform(this.transform.inverse());
+     ray=ray.transform(this.transform.inverse(Sphere.tempMatrix1));
      intersections??=new Intersections();
      var sphere2ray=ray.origin.substract(Tuple.point(0,0,0));
      var a=ray.direction.dot(ray.direction);
@@ -37,10 +40,10 @@ export class Sphere
 
    normalAt(p:Tuple):Tuple
    {
-     var inverseTransform=this.transform.inverse();
+     var inverseTransform=this.transform.inverse(Sphere.tempMatrix1);
      var objectNormal=inverseTransform.multiply(p);
      objectNormal.w=0;
-     var worldNormal=inverseTransform.transpose().multiply(objectNormal);
+     var worldNormal=inverseTransform.transpose(Sphere.tempMatrix2).multiply(objectNormal);
      worldNormal.w=0;
 
      return worldNormal.normalize();     
