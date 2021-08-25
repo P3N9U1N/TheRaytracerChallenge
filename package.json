@@ -6,6 +6,7 @@
     "license": "MIT",
     "workspaces": [
       "./raytracer",
-      "./spikes"
+      "./spikes",
+      "./raytracer-gui"
     ]
   }

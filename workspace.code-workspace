@@ -10,6 +10,9 @@
 		{
 			"path": "raytracer/src",
 			"name": "raytracer"
+		},		
+		{
+			"path": "raytracer-gui"
 		},
 		{
 			"path": "."

@@ -47,4 +47,19 @@ export class Canvas
     ppm+="\n";
     return ppm;
    }
+   toUint8ClampedArray():Uint8ClampedArray
+   {
+     var arr = new Uint8ClampedArray(this.width*this.height*4);
+     var arrIndex=0;
+     for (var i=0;i<this.data.length;i+=3)
+     {        
+         arr[arrIndex]= this.data[i]*255;
+         arr[arrIndex+1]=  this.data[i+1]*255;
+         arr[arrIndex+2]= this.data[i+2]*255;
+         arr[arrIndex+3]= 255;
+         arrIndex+=4; 
+     }
+     
+     return arr;
+   }
 }
