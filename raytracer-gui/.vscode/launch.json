@@ -1,0 +1,12 @@
+{
+    "configurations": [        
+    {
+        "name": "Launch Chrome",
+        "request": "launch",
+        "type": "pwa-chrome",
+        "file": "${workspaceFolder}/index.html",
+        "webRoot": "${workspaceFolder}",
+        "preLaunchTask": "build-raytracer-gui"
+    }
+    ]
+}

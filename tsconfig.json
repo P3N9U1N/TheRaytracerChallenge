@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig-base.json",
+   "files": [],
+  "references": [
+    {
+      "path": "./raytracer"
+    },
+    {
+      "path": "./raytracer-gui"
+    },
+    {
+      "path": "spikes"
+    }
+  ]
+}

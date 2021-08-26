@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "build-raytracer-gui",
+            "type":"npm",
+            "script": "build",
+            "group": "build"
+        }
+	]
+}
