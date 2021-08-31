@@ -8,7 +8,7 @@ test("A ray intersects a sphere at 2 points",
         var r = new Ray(Tuple.point( 0, 0,-5), Tuple.vector(0, 0, 1));
         var s = new Sphere(0);
         var xs= s.intersect(r);
-        expect(xs.length==0);
+        expect(xs.length).toBe(2);
         expect(xs.get(0).t).toBeCloseTo(4);
         expect(xs.get(1).t).toBeCloseTo(6);
     }

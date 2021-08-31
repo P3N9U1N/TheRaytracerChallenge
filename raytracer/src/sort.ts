@@ -10,7 +10,7 @@
     for (var i = left; i < middle;i++) {
          
         var minRight=items[middle];
-        if(minRight< items[i] )
+        if(compareFn(minRight, items[i]) <0)
         {
             var tmp=items[i];
             items[i] =minRight;

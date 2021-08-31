@@ -1,10 +1,19 @@
 {
     "configurations": [        
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch Firefox",
+            "file": "${workspaceFolder}/chapter8.html",
+            "preLaunchTask": "build-raytracer-gui"
+        },
+
     {
         "name": "Launch Chrome",
         "request": "launch",
         "type": "pwa-chrome",
-        "file": "${workspaceFolder}/index.html",
+        "file": "${workspaceFolder}/chapter7.html",
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "build-raytracer-gui"
     }

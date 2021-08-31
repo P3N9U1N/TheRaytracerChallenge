@@ -1,7 +1,8 @@
 import { Intersection, Intersections } from "raytracer/intersection";
+import { Ray } from "raytracer/ray";
 import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
-
+import { Computations } from "raytracer/computations";
 describe("Intersections",
 ()=>
 {
@@ -159,5 +160,27 @@ describe("Intersections",
     }
     );
 
-
+    test("The hit, when an intersection occurs on the outside"
+    ,()=>{
+     var shape = new Sphere(1);
+     var ray = new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1));
+     var i = new Intersection(4,shape); 
+     var comps= Computations.prepare(i,ray);
+     
+     expect(comps.inside).toBeFalsy();
+   
+    }
+    );
+    test("The hit, when an intersection occurs on the inside"
+    ,()=>{
+     var shape = new Sphere(1);
+     var ray = new Ray(Tuple.point(0,0,0),Tuple.vector(0,0,1));
+     var i = new Intersection(1,shape); 
+     var comps= Computations.prepare(i,ray);
+     expect(comps.point.equals(Tuple.point(0,0,1))).toBeTruthy();
+     expect(comps.eyev.equals(Tuple.vector(0,0,-1))).toBeTruthy();
+     expect(comps.inside).toBeTruthy();
+   
+    }
+    );
 })

@@ -1,30 +1,54 @@
-import { Color } from "raytracer/color";
-import { Material } from "raytracer/material";
-import { Matrix4x4 } from "raytracer/matrix";
-import { PointLight } from "raytracer/pointLight";
-import { Sphere } from "raytracer/sphere";
-import { Tuple } from "raytracer/tuple";
+
+import { Color } from "./color";
+import { Computations } from "./computations";
+import { Intersections } from "./intersection";
+import { Material } from "./material";
+import { Matrix4x4 } from "./matrix";
+import { PointLight } from "./pointLight";
+import { Ray } from "./ray";
+import { Sphere } from "./sphere";
+import { Tuple } from "./tuple";
 
 export class World
-{  
+{
+
     light:PointLight;
-    objects:any[];
-    static defaultWorld():World
-    {
-      var w = new World();
-      w.light= new PointLight(Tuple.point(-10,10,-10),new Color(1,1,1));
-      var m1= new Material();
-      m1.color= new Color(0.8,1.0,0.6);
-      m1.diffuse=0.7;
-      m1.specular=0.2;
-      var s1= new Sphere(0,Matrix4x4.IDENTITY_MATRIX.clone(),m1);
-      var s2= new Sphere(1,Matrix4x4.scaling(0.5,0.5,0.5));
-      w.objects=[s1,s2];
-      return w;
-    }
+    objects:IWorldObject[];
     
+    private static tempIntersections= new Intersections(100);
+
     constructor() {
        
         
     }
+    shadeHit(comps: Computations):Color {
+      return comps.object.material.lighting(this.light,comps.point,comps.eyev,comps.normalv);
+    }  
+    colorAt(ray:Ray)
+    {
+      World.tempIntersections.clear();
+      this.intersect(ray,World.tempIntersections);
+      var i=World.tempIntersections.hit();
+      if (i==null) return Color.BLACK.clone();
+      var comp=Computations.prepare(i,ray);
+      return this.shadeHit(comp);
+    } 
+
+    intersect(ray:Ray, intersections?: Intersections ):Intersections
+    {     
+      intersections??=new Intersections();     
+      for (var o of this.objects)
+      {
+        o.intersect(ray,intersections)
+      }
+      return intersections;
+    }
+}
+
+export interface IWorldObject
+{
+  material:Material;
+  intersect(ray:Ray,intersections?: Intersections ):Intersections;
+  normalAt(p:Tuple):Tuple;
+    
 }

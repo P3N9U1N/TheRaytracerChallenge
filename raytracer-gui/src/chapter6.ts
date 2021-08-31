@@ -8,7 +8,7 @@ import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
 
 
-function simpleRenderTest():Canvas
+function chapter6Render():Canvas
 {
     var c = new Canvas(1024,1024);
     var rayOrigin = Tuple.point(0,0,-5);
@@ -46,12 +46,12 @@ function simpleRenderTest():Canvas
     return c;
 }
 
-var canvas= simpleRenderTest();
-var raytracerCanvas= <HTMLCanvasElement> document.getElementById("raytracerCanvas");
-raytracerCanvas.width=canvas.width;
-raytracerCanvas.height=canvas.height;
-var renderData= canvas.toUint8ClampedArray();
-var imageData = new ImageData(renderData,canvas.width,canvas.height);
-var ctx =raytracerCanvas.getContext("2d");
-ctx.putImageData(imageData,0,0);
+var canvas = chapter6Render();
+var raytracerCanvas = <HTMLCanvasElement>document.getElementById("raytracerCanvas");
+raytracerCanvas.width = canvas.width;
+raytracerCanvas.height = canvas.height;
+var renderData = canvas.toUint8ClampedArray();
+var imageData = new ImageData(renderData, canvas.width, canvas.height);
+var ctx = raytracerCanvas.getContext("2d");
+ctx.putImageData(imageData, 0, 0);
 

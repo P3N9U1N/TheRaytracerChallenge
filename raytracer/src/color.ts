@@ -5,15 +5,14 @@ export class Color {
     
     private static EPSILON: number = 0.00001;
     
-    public static BLACK= new Color(0,0,0);
-    public static WHITE= new Color(1,1,1);
+    public static readonly BLACK= Object.freeze(new Color(0,0,0));
+    public static readonly WHITE= Object.freeze(new Color(1,1,1));
     constructor()
     constructor(red: number, green: number, blue: number)
     constructor(red?: number, green?: number, blue?: number) {
         this.red = red;
         this.green = green;
-        this.blue = blue;
-
+        this.blue = blue;        
     }
 
 

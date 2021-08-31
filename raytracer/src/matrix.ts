@@ -167,6 +167,38 @@ export class Matrix4x4 extends Matrix
             [0,0,0,1]
         ]
     );
+    private static tempMatrix4x4= new Matrix4x4();
+
+    public static viewTransform(from:Tuple,to:Tuple,up:Tuple ,target?:Matrix4x4):Matrix4x4
+    {
+        target??=new Matrix4x4();
+
+        var forward=to.substract(from).normalize();
+        var upn= up.normalize();
+        var left =forward.cross(upn);
+        var trueUp=left.cross(forward);
+        target.data[0]=left.x;
+        target.data[1]=left.y;
+        target.data[2]=left.z;
+
+
+        target.data[4]=trueUp.x;
+        target.data[5]=trueUp.y;
+        target.data[6]=trueUp.z;
+
+
+        target.data[8]=-forward.x;
+        target.data[9]=-forward.y;
+        target.data[10]=-forward.z;
+
+        target.data[15]=1;
+        
+        Matrix4x4.translation(-from.x,-from.y,-from.z, Matrix4x4.tempMatrix4x4);
+
+        target.multiply(Matrix4x4.tempMatrix4x4,target);
+        return target;
+    }
+
 
     public static translation(x:number,y:number,z:number,target?:Matrix4x4):Matrix4x4
     {
@@ -318,6 +350,7 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
+
 
     constructor(matrix?: Array<Array<number>>) 
     {

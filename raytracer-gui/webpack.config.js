@@ -2,7 +2,11 @@ const path = require('path');
 //const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry:
+  { 
+    chapter6: {import :'./src/chapter6.ts'},
+    chapter7: {import :'./src/chapter7.ts'},   
+  },
   mode: 'development',
   devtool: 'inline-source-map',
   "context": __dirname,
@@ -28,7 +32,13 @@ module.exports = {
     },
   },
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+    filename: '[name]-bundle.js',
+    path: path.resolve(__dirname, ''),
+  }, 
+  /* //Bundle common dependencies into seperate file (todo)(https://webpack.js.org/guides/code-splitting/)
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },*/
 };

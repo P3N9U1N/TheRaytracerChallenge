@@ -628,3 +628,55 @@ test("Chained transformations must be applied in reverse order",
     expect(t.multiply(p).equals(Tuple.point(15,0,7))).toBeTruthy();
 }
 );
+
+
+test("The transformation matrix for the default orientation",
+()=>
+{
+    var from=Tuple.point(0,0,0);
+    var to=Tuple.point(0,0,-1);
+    var up= Tuple.vector(0,1,0);
+    var t= Matrix4x4.viewTransform(from,to,up);
+    expect(t.equals(Matrix4x4.IDENTITY_MATRIX)).toBeTruthy();
+}
+);
+test("A view transformation matrix looking in positive z direction",
+()=>
+{
+    var from=Tuple.point(0,0,0);
+    var to=Tuple.point(0,0,1);
+    var up= Tuple.vector(0,1,0);
+    var t= Matrix4x4.viewTransform(from,to,up);
+    expect(t.equals(Matrix4x4.scaling(-1,1,-1) )).toBeTruthy();
+}
+);
+
+test("The view transformation moves the world",
+()=>
+{
+    var from=Tuple.point(0,0,8);
+    var to=Tuple.point(0,0,0);
+    var up= Tuple.vector(0,1,0);
+    var t= Matrix4x4.viewTransform(from,to,up);
+    expect(t.equals(Matrix4x4.translation(0,0,-8) )).toBeTruthy();
+}
+);
+test("An arbitrary view transformation",
+()=>
+{
+    var from=Tuple.point(1,3,2);
+    var to=Tuple.point(4,-2,8);
+    var up= Tuple.vector(1,1,0);
+    var t= Matrix4x4.viewTransform(from,to,up);
+    var m= new Matrix4x4(
+        [
+            [-0.50709,0.50709,0.67612,-2.36643],
+            [0.76772,0.60609,0.12122,-2.82843],
+            [-0.35857,0.59761,-0.71714,0],
+            [0,0,0,1],
+        ]
+    ); 
+ 
+    expect(t.equals(m )).toBeTruthy();
+}
+);
