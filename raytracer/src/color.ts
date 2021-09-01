@@ -1,10 +1,10 @@
+import { EPSILON } from "./constants";
+
 export class Color {
     public red: number;
     public green: number;
-    public blue: number;
-    
-    private static EPSILON: number = 0.00001;
-    
+    public blue: number;  
+
     public static readonly BLACK= Object.freeze(new Color(0,0,0));
     public static readonly WHITE= Object.freeze(new Color(1,1,1));
     constructor()
@@ -34,9 +34,9 @@ export class Color {
     }
 
     public equals(color: Color) {
-        return Math.abs(this.red - color.red) < Color.EPSILON
-            && Math.abs(this.green - color.green) < Color.EPSILON
-            && Math.abs(this.blue - color.blue) < Color.EPSILON;
+        return Math.abs(this.red - color.red) < EPSILON
+            && Math.abs(this.green - color.green) < EPSILON
+            && Math.abs(this.blue - color.blue) < EPSILON;
     }
     clone()
     {

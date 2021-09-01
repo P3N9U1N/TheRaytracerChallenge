@@ -6,7 +6,8 @@ module.exports = {
   { 
     // chapter6: {import :'./src/chapter6.ts'},
     //chapter7: {import :'./src/chapter7.ts'},  
-    chapter8: {import :'./src/chapter8.ts'},   
+    //chapter8: {import :'./src/chapter8.ts'},
+    chapter9: {import :'./src/chapter9.ts'},     
   },
   mode: 'development',
   devtool: 'inline-source-map',

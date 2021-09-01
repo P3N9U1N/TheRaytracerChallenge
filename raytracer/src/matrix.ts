@@ -1,7 +1,7 @@
+import { EPSILON } from "./constants";
 import { Tuple } from "./tuple";
 
-export class Matrix {
-    private static EPSILON: number = 0.00001;
+export class Matrix {   
     protected data: Float64Array;
     
    
@@ -149,7 +149,7 @@ export class Matrix {
         for (var i = 0; i < this.data.length; i++) {
            {
                 var diff= Math.abs(this.data[i] - matrix.data[i]);
-                if (diff >= Matrix.EPSILON) return false;
+                if (diff >= EPSILON) return false;
             }
 
         }

@@ -1,10 +1,11 @@
+import { EPSILON } from "./constants";
+
 export class Tuple {
     public x: number;
     public y: number;
     public z: number;
     public w: number;
 
-    public static EPSILON: number = 0.00001;
     
     constructor()
     constructor(x: number, y: number, z: number, w: number)
@@ -57,9 +58,9 @@ export class Tuple {
       return this.substract(normal.multiply(2*this.dot(normal)));
     }
     public equals(tuple: Tuple) {
-        return Math.abs(this.x - tuple.x) < Tuple.EPSILON
-            && Math.abs(this.y - tuple.y) < Tuple.EPSILON
-            && Math.abs(this.z - tuple.z) < Tuple.EPSILON;
+        return Math.abs(this.x - tuple.x) < EPSILON
+            && Math.abs(this.y - tuple.y) < EPSILON
+            && Math.abs(this.z - tuple.z) < EPSILON;
     }
     static point(x: number, y: number, z: number): Tuple {
         return new Tuple(x, y, z, 1);

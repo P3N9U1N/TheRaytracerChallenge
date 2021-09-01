@@ -1,12 +1,13 @@
+import { EPSILON } from "./constants";
 import { Intersection } from "./intersection";
 import { Ray } from "./ray";
 import { Tuple } from "./tuple";
-import { IWorldObject } from "./world";
+import { IShape } from "./world";
 
 export class Computations
 {
     t: number;
-    object: IWorldObject;
+    object: IShape;
     point: Tuple;
     eyev:Tuple;
     normalv: Tuple;
@@ -28,7 +29,7 @@ export class Computations
       } else {
         comps.inside=false;
       }
-      comps.overPoint=comps.point.add(comps.normalv.multiply(Tuple.EPSILON));
+      comps.overPoint=comps.point.add(comps.normalv.multiply(EPSILON));
 
       return comps;
     }

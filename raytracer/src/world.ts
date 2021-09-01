@@ -13,7 +13,7 @@ export class World
 {
 
     light:PointLight;
-    objects:IWorldObject[];
+    objects:IShape[];
     
     private static tempIntersections= new Intersections(100);
 
@@ -60,10 +60,10 @@ export class World
     }
 }
 
-export interface IWorldObject
+export interface IShape
 {
   material:Material; 
+  transform:Matrix4x4; 
   intersect(ray:Ray,intersections?: Intersections ):Intersections;
-  normalAt(p:Tuple):Tuple;
-    
+  normalAt(p:Tuple):Tuple;    
 }

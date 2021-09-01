@@ -5,7 +5,7 @@
             "request": "launch",
             "reAttach": true,
             "name": "Launch Firefox",
-            "file": "${workspaceFolder}/chapter8.html",
+            "file": "${workspaceFolder}/chapter9.html",
             "preLaunchTask": "build-raytracer-gui"
         },
 
@@ -13,7 +13,7 @@
         "name": "Launch Chrome",
         "request": "launch",
         "type": "pwa-chrome",
-        "file": "${workspaceFolder}/chapter8.html",
+        "file": "${workspaceFolder}/chapter9.html",
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "build-raytracer-gui"
     }

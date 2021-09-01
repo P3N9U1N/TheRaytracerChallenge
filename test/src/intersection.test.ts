@@ -4,6 +4,7 @@ import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
 import { Computations } from "raytracer/computations";
 import { Matrix4x4 } from "raytracer/matrix";
+import { EPSILON } from "raytracer/constants";
 describe("Intersections",
 ()=>
 {
@@ -192,7 +193,7 @@ describe("Intersections",
      var ray = new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1));
      var i = new Intersection(5,shape); 
      var comps= Computations.prepare(i,ray);
-     expect(comps.overPoint.z).toBeLessThan(-Tuple.EPSILON/2);
+     expect(comps.overPoint.z).toBeLessThan(-EPSILON/2);
      expect(comps.point.z).toBeGreaterThan(comps.overPoint.z);
 
    

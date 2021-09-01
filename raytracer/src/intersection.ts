@@ -1,9 +1,9 @@
 import { ObjectPool } from "./collection"
 import {mergeSortInplace} from "./sort"
-import { IWorldObject } from "./world";
+import { IShape } from "./world";
 export class Intersection {
     t: number;
-    object: IWorldObject;
+    object: IShape;
     constructor(t: number, object: any) {
 
         this.t = t;
