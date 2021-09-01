@@ -108,6 +108,37 @@ test("The color with an intersection behind the ray",
     }
 );
 
+test("There is no shadow when nothing is collinear with point and light",
+    () => {
+
+     
+        var w = defaultWorld();
+        var p = Tuple.point(0,10,0);  
+        expect( w.isShadowed(p) ).toBeFalsy();
+    }
+);
 
 
+test("The shadow when an object is between the point and the light",
+    () => {     
+        var w = defaultWorld();
+        var p = Tuple.point(10,-10,10);  
+        expect( w.isShadowed(p) ).toBeTruthy();
+    }
+);
 
+test("There is no shadow when an object is behind the light",
+    () => {     
+        var w = defaultWorld();
+        var p = Tuple.point(-20,20,-20);  
+        expect( w.isShadowed(p) ).toBeFalsy();
+    }
+);
+
+test("There is no shadow when an object is behind the point",
+    () => {     
+        var w = defaultWorld();
+        var p = Tuple.point(-2,2,-2);  
+        expect( w.isShadowed(p) ).toBeFalsy();
+    }
+);

@@ -4,7 +4,7 @@ export class Tuple {
     public z: number;
     public w: number;
 
-    private static EPSILON: number = 0.00001;
+    public static EPSILON: number = 0.00001;
     
     constructor()
     constructor(x: number, y: number, z: number, w: number)

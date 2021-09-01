@@ -10,11 +10,13 @@ export class Material
     specular:number=0.9;
     shininess:number=200;
 
-    lighting(light:PointLight,point:Tuple,eyev:Tuple,normalv:Tuple):Color
+    lighting(light:PointLight,point:Tuple,eyev:Tuple,normalv:Tuple,inShadow:boolean=false):Color
     {
        var effectiveColor=this.color.hadamardProduct(light.intensity);
-       var lightv=light.positon.substract(point).normalize();
        var ambient=effectiveColor.multiply(this.ambient);
+       if (inShadow) return ambient;
+       var lightv=light.positon.substract(point).normalize();
+
        var lightDotNormal=lightv.dot(normalv);
        var diffuse;
        var specular;

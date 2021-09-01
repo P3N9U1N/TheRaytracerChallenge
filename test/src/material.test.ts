@@ -66,3 +66,15 @@ beforeEach(() => {
     
   }
   );
+
+  test("Lighting with the surface in shadow",
+  ()=>
+  {
+    var eyev=Tuple.vector(0,0,-1);
+    var normalv=Tuple.vector(0,0,-1);
+    var light= new PointLight(Tuple.point(0,0,-10),new Color(1,1,1));
+    var result=m.lighting(light,position,eyev,normalv,true);
+    expect(result.equals(new Color(0.1,0.1,0.1))).toBeTruthy();
+    
+  }
+  );

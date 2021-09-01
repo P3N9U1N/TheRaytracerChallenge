@@ -169,10 +169,8 @@ export class Matrix4x4 extends Matrix
     );
     private static tempMatrix4x4= new Matrix4x4();
 
-    public static viewTransform(from:Tuple,to:Tuple,up:Tuple ,target?:Matrix4x4):Matrix4x4
+    public static viewTransform(from:Tuple,to:Tuple,up:Tuple ,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
     {
-        target??=new Matrix4x4();
-
         var forward=to.substract(from).normalize();
         var upn= up.normalize();
         var left =forward.cross(upn);
@@ -200,9 +198,8 @@ export class Matrix4x4 extends Matrix
     }
 
 
-    public static translation(x:number,y:number,z:number,target?:Matrix4x4):Matrix4x4
+    public static translation(x:number,y:number,z:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
     {
-        target??=new Matrix4x4();
         target.data[0]=1;
         target.data[4]=0;
         target.data[8]=0;
@@ -224,9 +221,8 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
-    public static rotationX(radians:number,target?:Matrix4x4):Matrix4x4
-    {
-        target??= new Matrix4x4();
+    public static rotationX(radians:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {       
         var cos=Math.cos(radians);
         var sin= Math.sin(radians);
         target.data[0]=1;
@@ -250,9 +246,8 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
-    public static rotationY(radians:number,target?:Matrix4x4):Matrix4x4
-    {
-        target??= new Matrix4x4();
+    public static rotationY(radians:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {       
         var cos=Math.cos(radians);
         var sin= Math.sin(radians);
         target.data[0]=cos;
@@ -276,9 +271,8 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
-    public static rotationZ(radians:number,target?:Matrix4x4):Matrix4x4
-    {
-        target??= new Matrix4x4();
+    public static rotationZ(radians:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {        
         var cos=Math.cos(radians);
         var sin= Math.sin(radians);
         target.data[0]=cos;
@@ -302,9 +296,8 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
-    public static scaling(x:number,y:number,z:number,target?:Matrix4x4):Matrix4x4
-    {
-        target??= new Matrix4x4();
+    public static scaling(x:number,y:number,z:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {        
         target.data[0]=x;
         target.data[4]=0;
         target.data[8]=0;
@@ -326,9 +319,8 @@ export class Matrix4x4 extends Matrix
         target.data[15]=1;
         return target;
     }
-    public static shearing(xy:number,xz:number,yx:number,yz:number,zx:number,zy:number,target?:Matrix4x4):Matrix4x4
-    {
-        target??= new Matrix4x4();
+    public static shearing(xy:number,xz:number,yx:number,yz:number,zx:number,zy:number,target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {       
         target.data[0]=1;
         target.data[4]=yx;
         target.data[8]=zx;
@@ -365,10 +357,9 @@ export class Matrix4x4 extends Matrix
           super(4 ,4);
         }
     }
-    transpose(target?:Matrix4x4):Matrix4x4
+    transpose(target:Matrix4x4 =new Matrix4x4()):Matrix4x4
     {
-        var swap:number;
-        target??=new Matrix4x4();
+        var swap:number;      
         target.data[0] = this.data[0];
         swap=  this.data[1];
         target.data[1] = this.data[4];
@@ -394,9 +385,8 @@ export class Matrix4x4 extends Matrix
         return target;
     }
 
-    inverse(target?:Matrix4x4):Matrix4x4
-    {
-        target ??= new Matrix4x4();
+    inverse(target:Matrix4x4 =new Matrix4x4()):Matrix4x4
+    {       
         var a00=this.data[0];
         var a01=this.data[1];
         var a02=this.data[2];

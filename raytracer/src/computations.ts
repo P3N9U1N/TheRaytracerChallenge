@@ -11,6 +11,7 @@ export class Computations
     eyev:Tuple;
     normalv: Tuple;
     inside: boolean;
+    overPoint: Tuple;
     public static prepare(intersection:Intersection,ray:Ray ):Computations
     {
       var comps = new Computations();
@@ -27,6 +28,7 @@ export class Computations
       } else {
         comps.inside=false;
       }
+      comps.overPoint=comps.point.add(comps.normalv.multiply(Tuple.EPSILON));
 
       return comps;
     }

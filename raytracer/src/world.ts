@@ -22,7 +22,12 @@ export class World
         
     }
     shadeHit(comps: Computations):Color {
-      return comps.object.material.lighting(this.light,comps.point,comps.eyev,comps.normalv);
+      return comps.object.material.lighting(this.light,
+        comps.point,
+        comps.eyev,
+        comps.normalv,
+        this.isShadowed(comps.overPoint)
+        );
     }  
     colorAt(ray:Ray)
     {
@@ -34,20 +39,30 @@ export class World
       return this.shadeHit(comp);
     } 
 
-    intersect(ray:Ray, intersections?: Intersections ):Intersections
-    {     
-      intersections??=new Intersections();     
+    intersect(ray:Ray, intersections: Intersections =new Intersections()):Intersections
+    {    
       for (var o of this.objects)
       {
         o.intersect(ray,intersections)
       }
       return intersections;
     }
+    isShadowed(point:Tuple):boolean
+    {
+     var v= this.light.positon.substract(point);
+     var distance= v.magnitude();
+     var direction=v.normalize();
+     var r= new Ray(point,direction);
+     World.tempIntersections.clear();
+     this.intersect(r,World.tempIntersections);
+     var h= World.tempIntersections.hit();
+     return (h!=null && h.t< distance);
+    }
 }
 
 export interface IWorldObject
 {
-  material:Material;
+  material:Material; 
   intersect(ray:Ray,intersections?: Intersections ):Intersections;
   normalAt(p:Tuple):Tuple;
     

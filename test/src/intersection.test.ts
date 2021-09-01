@@ -3,6 +3,7 @@ import { Ray } from "raytracer/ray";
 import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
 import { Computations } from "raytracer/computations";
+import { Matrix4x4 } from "raytracer/matrix";
 describe("Intersections",
 ()=>
 {
@@ -180,6 +181,20 @@ describe("Intersections",
      expect(comps.point.equals(Tuple.point(0,0,1))).toBeTruthy();
      expect(comps.eyev.equals(Tuple.vector(0,0,-1))).toBeTruthy();
      expect(comps.inside).toBeTruthy();
+   
+    }
+    );
+    test("The hit should offset the point"
+    ,()=>{
+     var shape = new Sphere(1);
+     shape.transform=Matrix4x4.translation(0,0,1);
+
+     var ray = new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1));
+     var i = new Intersection(5,shape); 
+     var comps= Computations.prepare(i,ray);
+     expect(comps.overPoint.z).toBeLessThan(-Tuple.EPSILON/2);
+     expect(comps.point.z).toBeGreaterThan(comps.overPoint.z);
+
    
     }
     );

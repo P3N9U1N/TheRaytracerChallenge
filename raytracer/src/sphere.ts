@@ -30,9 +30,8 @@ export class Sphere implements IWorldObject {
     this.material = material ?? new Material();
   }
   
-  intersect(ray: Ray, intersections?: Intersections): Intersections {
+  intersect(ray: Ray, intersections: Intersections= new Intersections()): Intersections {
     ray = ray.transform(this.inverseTransform);
-    intersections ??= new Intersections();
     var sphere2ray = ray.origin.substract(Tuple.point(0, 0, 0));
     var a = ray.direction.dot(ray.direction);
     var b = 2 * ray.direction.dot(sphere2ray);

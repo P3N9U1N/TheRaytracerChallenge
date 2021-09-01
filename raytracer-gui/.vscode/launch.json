@@ -13,7 +13,7 @@
         "name": "Launch Chrome",
         "request": "launch",
         "type": "pwa-chrome",
-        "file": "${workspaceFolder}/chapter7.html",
+        "file": "${workspaceFolder}/chapter8.html",
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "build-raytracer-gui"
     }
