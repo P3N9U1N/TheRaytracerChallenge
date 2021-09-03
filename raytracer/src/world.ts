@@ -22,7 +22,7 @@ export class World
         
     }
     shadeHit(comps: Computations):Color {
-      return comps.object.material.lighting(this.light,
+      return comps.object.material.lighting(this.light,comps.object,
         comps.point,
         comps.eyev,
         comps.normalv,
@@ -63,7 +63,15 @@ export class World
 export interface IShape
 {
   material:Material; 
-  transform:Matrix4x4; 
+  /**
+   * Transformation matrix. Call setter after change for updating inverse.
+   */
+  transform:Matrix4x4;  
+  /**
+  * Inverse Transformation matrix. Keep in sync with transformation matrix.
+  */   
+  inverseTransform: Matrix4x4;
   intersect(ray:Ray,intersections?: Intersections ):Intersections;
   normalAt(p:Tuple):Tuple;    
+ 
 }

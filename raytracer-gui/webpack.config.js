@@ -7,7 +7,8 @@ module.exports = {
     // chapter6: {import :'./src/chapter6.ts'},
     //chapter7: {import :'./src/chapter7.ts'},  
     //chapter8: {import :'./src/chapter8.ts'},
-    chapter9: {import :'./src/chapter9.ts'},     
+    //chapter9: {import :'./src/chapter9.ts'},     
+    chapter10: {import :'./src/chapter10.ts'},    
   },
   mode: 'development',
   devtool: 'inline-source-map',
@@ -28,10 +29,11 @@ module.exports = {
     ],
   }, 
   resolve: {
-    extensions: ['.tsx', '.ts', 'js'],
+    extensions: ['.tsx', '.ts', '.js'],
+   /*
     alias: {
       raytracer: path.resolve(__dirname, '../raytracer/src/')   
-    },
+    },*/
   },
   output: {
     filename: '[name]-bundle.js',

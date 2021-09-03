@@ -1,6 +1,8 @@
 import { Color } from "./color";
+import { Pattern } from "./patterns";
 import { PointLight } from "./pointLight";
 import { Tuple } from "./tuple";
+import { IShape } from "./world";
 
 export class Material
 {
@@ -9,10 +11,13 @@ export class Material
     diffuse:number=0.9;
     specular:number=0.9;
     shininess:number=200;
+    pattern:Pattern=null;
 
-    lighting(light:PointLight,point:Tuple,eyev:Tuple,normalv:Tuple,inShadow:boolean=false):Color
+    lighting(light:PointLight,object:IShape, point:Tuple,eyev:Tuple,normalv:Tuple,inShadow:boolean=false):Color
     {
-       var effectiveColor=this.color.hadamardProduct(light.intensity);
+       var color:Color =this.pattern!=null? this.pattern.patternAtShape(object,point):this.color;
+  
+       var effectiveColor=color.hadamardProduct(light.intensity);
        var ambient=effectiveColor.multiply(this.ambient);
        if (inShadow) return ambient;
        var lightv=light.positon.substract(point).normalize();

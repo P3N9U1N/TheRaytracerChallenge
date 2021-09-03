@@ -3,14 +3,17 @@ This is my code for the book "The Ray Tracer Challenge" from Jamis Buck.
 The raytracer is completely written in Typescript, unit tests have been
 implemented with JEST.
 
-## Chapter 7 (spheres with a plane)
+
+## Chapter 10 (Patterns)
+
+## Chapter 9 (Planes)
 
 
-## Chapter 8 (shadows)
+## Chapter 8 (Shadows)
 
-## Chapter 7 (spheres)
+## Chapter 7 (Making a Scene)
 
-## Chapter 6 (sphere) 
+## Chapter 6 (Light and Shading) 
 
 ## Chapter 1-5
 Chapter 1-5 code is in the spikes/ directory, written for NodeJS. 

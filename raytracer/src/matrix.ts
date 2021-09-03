@@ -110,10 +110,9 @@ export class Matrix {
         for (var y = 0; y < matrix.height; y++) {
             for (var x = y; x < matrix.width; x++) {
                 var index=this.width*y+x;
-                var indexTransposed=this.width*x+y;
-                var swap=  this.data[index];                
+                var indexTransposed=this.width*x+y;                           
                 matrix.data[index] = this.data[indexTransposed];
-                matrix.data[indexTransposed] = swap;
+                matrix.data[indexTransposed] = this.data[index];
             }
         }
         return matrix;

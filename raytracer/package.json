@@ -10,5 +10,8 @@
   "license": "ISC",
   "exports": {
     "./*": "./dist/*.js"
+  },
+  "dependencies": {
+    "fast-simplex-noise": "^4.0.0"
   }
 }

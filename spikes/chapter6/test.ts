@@ -42,7 +42,7 @@ for (var y=0;y<c.height;y++)
             var hit= xs.hit();
             var point=r.position(hit.t);
             var normal=shape.normalAt(point)
-            var color=shape.material.lighting(light,point, r.direction.negate() ,normal);
+            var color=shape.material.lighting(light,hit.object,point, r.direction.negate() ,normal);
             c.writePixel(x,y,color);
         }
     }

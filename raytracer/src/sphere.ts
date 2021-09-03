@@ -7,7 +7,8 @@ import { IShape } from "./world";
 export class Sphere implements IShape {
 
   id: number;
-  private inverseTransform: Matrix4x4;
+  public inverseTransform: Matrix4x4;
+
   private _transform: Matrix4x4;
   /**
    * Transformation matrix. Call setter after change for updating inverse.

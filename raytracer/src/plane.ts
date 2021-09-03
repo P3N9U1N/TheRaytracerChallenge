@@ -8,7 +8,8 @@ import { EPSILON } from "./constants";
 export class Plane implements IShape {
 
   id: number;
-  private inverseTransform: Matrix4x4;
+  public inverseTransform: Matrix4x4;
+
   private _transform: Matrix4x4;
   /**
    * Transformation matrix. Call setter after change for updating inverse.
@@ -37,10 +38,11 @@ export class Plane implements IShape {
     return intersections;
   }
 
-  normalAt(p: Tuple): Tuple {   
+  normalAt(p: Tuple): Tuple { 
+
     var objectNormal =Tuple.vector(0,1,0); 
     var worldNormal = this.inverseTransform.transpose(Plane.tempMatrix1).multiply(objectNormal);
-    worldNormal.w = 0;
+    worldNormal.w = 0;  
     return worldNormal.normalize();
   }
 
