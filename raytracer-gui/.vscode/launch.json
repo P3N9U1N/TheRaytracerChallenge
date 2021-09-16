@@ -14,6 +14,7 @@
         "request": "launch",
         "type": "pwa-chrome",
         "file": "${workspaceFolder}/chapter10.html",
+        "runtimeArgs": ["--allow-file-access-from-files"], //needed for webworker
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "build-raytracer-gui"
     }

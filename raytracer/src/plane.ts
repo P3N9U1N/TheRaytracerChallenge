@@ -54,4 +54,5 @@ export class Plane implements IShape {
     i.t=-ray.origin.y/ray.direction.y;
     return intersections;
   }
+
 }

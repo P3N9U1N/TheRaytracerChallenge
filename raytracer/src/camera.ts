@@ -84,6 +84,28 @@ export class Camera
     return new Ray(origin,direction);
   }
 
+  renderPartial(world:World,from:{x:number,y:number}={x:0,y:0},to:{x:number,y:number}={x:this.hsize,y:this.vsize}):Uint8ClampedArray
+  {
+    var top=from.y;
+    var left=from.x;
+    var height= to.y-top;
+    var width=to.x-left;
+    var image =   new Uint8ClampedArray(width*height*4);  
+    var pixelIndex=0;
+    for (var y= 0;y< height;y++)
+    {
+      for (var x= 0;x< width;x++)
+      {
+        var ray = this.rayForPixel(left+x,top+y);
+        var color= world.colorAt(ray);
+        image[pixelIndex++]=color.red*255;
+        image[pixelIndex++]=color.green*255;
+        image[pixelIndex++]=color.blue*255;    
+        image[pixelIndex++]=255;    
+      }      
+    }
+    return image;
+  }
   render(world:World):Canvas
   {
     var image = new Canvas(this.hsize,this.vsize);
@@ -98,5 +120,8 @@ export class Camera
     }
     return image;
   }
-
+  toObject():any
+  {
+    return {hsize:this.hsize,vsize:this.vsize, fieldOfView: this.fieldOfView,transform:this.transform.toArray()};  
+  }
 }

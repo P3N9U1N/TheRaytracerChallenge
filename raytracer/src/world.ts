@@ -49,7 +49,7 @@ export class World
     }
     isShadowed(point:Tuple):boolean
     {
-     var v= this.light.positon.substract(point);
+     var v= this.light.position.substract(point);
      var distance= v.magnitude();
      var direction=v.normalize();
      var r= new Ray(point,direction);
@@ -58,10 +58,13 @@ export class World
      var h= World.tempIntersections.hit();
      return (h!=null && h.t< distance);
     }
+
+
 }
 
 export interface IShape
 {
+  id:number;
   material:Material; 
   /**
    * Transformation matrix. Call setter after change for updating inverse.

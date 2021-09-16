@@ -57,4 +57,5 @@ export class Sphere implements IShape {
     worldNormal.w = 0;
     return worldNormal.normalize();
   }
+
 }

@@ -12,6 +12,11 @@ export class Material
     specular:number=0.9;
     shininess:number=200;
     pattern:Pattern=null;
+    
+    constructor(public id:number=-1)
+    {
+
+    }
 
     lighting(light:PointLight,object:IShape, point:Tuple,eyev:Tuple,normalv:Tuple,inShadow:boolean=false):Color
     {
@@ -20,7 +25,7 @@ export class Material
        var effectiveColor=color.hadamardProduct(light.intensity);
        var ambient=effectiveColor.multiply(this.ambient);
        if (inShadow) return ambient;
-       var lightv=light.positon.substract(point).normalize();
+       var lightv=light.position.substract(point).normalize();
 
        var lightDotNormal=lightv.dot(normalv);
        var diffuse;
@@ -46,4 +51,5 @@ export class Material
        }
        return ambient.add(diffuse).add(specular);
     }
+
 }

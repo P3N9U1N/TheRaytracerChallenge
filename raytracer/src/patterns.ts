@@ -39,6 +39,7 @@ export abstract class Pattern
 
 export class StripePattern extends Pattern
 {
+
     private colors:Color[];
     
     get a(): Color
@@ -60,12 +61,15 @@ export class StripePattern extends Pattern
     {
       return this.colors[Math.floor(Math.abs(point.x)) %2];
     }
-
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,transform:this.transform.toArray() };
+    }
 }
 
 
 export class GradientPattern extends Pattern
 {
+
     a: Color;
     b: Color;
     constructor(a:Color,b:Color ,transform:Matrix4x4= Matrix4x4.IDENTITY_MATRIX.clone()) 
@@ -81,11 +85,15 @@ export class GradientPattern extends Pattern
       var fraction= point.x-Math.floor(point.x);
       return this.a.add(distance.multiply(fraction));
     }
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,transform:this.transform.toArray()};
+    }
 
 }
 
 export class RingPattern extends Pattern
 {
+
     a: Color;
     b: Color;
     constructor(a:Color,b:Color ,transform:Matrix4x4= Matrix4x4.IDENTITY_MATRIX.clone()) 
@@ -100,10 +108,14 @@ export class RingPattern extends Pattern
       return (Math.floor(Math.sqrt(point.x*point.x+point.z*point.z)) %2 ==0) ? this.a:this.b;
     }
 
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,transform:this.transform.toArray()};
+    }
 }
 
 export class Checker3dPattern extends Pattern
 {
+
     a: Color;
     b: Color;
     constructor(a:Color,b:Color ,transform:Matrix4x4= Matrix4x4.IDENTITY_MATRIX.clone()) 
@@ -117,11 +129,14 @@ export class Checker3dPattern extends Pattern
     { 
       return ((Math.floor(point.x) +Math.floor(point.y) +Math.floor(point.z)) % 2 ==0) ? this.a:this.b;
     }
-
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,transform:this.transform.toArray()};
+    }
 }
 
 export class Checker3DPattern4Sphere extends Pattern
 {
+
     a: Color;
     b: Color;
     uvScale: number;
@@ -141,8 +156,9 @@ export class Checker3DPattern4Sphere extends Pattern
       var tv = point.y /2 *this.uvScale;
       return (((Math.floor( tu) +Math.floor(tv)) ) %2 ==0) ? this.a:this.b;
     }
-
-
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,uvScale:this.uvScale,transform:this.transform.toArray()};
+    }
 }
 
 
@@ -152,14 +168,16 @@ export class PerlinPattern extends Pattern
     b: Color;
     private noise3d: (x: number, y: number, z: number) => number;
     threshold: number;
+    private seed: number;
    
     constructor(a:Color,b:Color,threshold:number=0.5,seed=Math.random(), transform:Matrix4x4= Matrix4x4.IDENTITY_MATRIX.clone()) 
     {
         super(transform);
         this.a=a;
         this.b=b; 
-        this.noise3d=makeNoise3D(()=>seed);
+        this.noise3d=makeNoise3D(()=>this.seed);
         this.threshold=threshold;
+        this.seed=seed;
     }
 
     patternAt(point:Tuple):Color
@@ -167,5 +185,7 @@ export class PerlinPattern extends Pattern
       return this.noise3d(point.x,point.y,point.z)>this.threshold ? this.a:this.b;
     }
 
-
+    toObject() {
+      return { type:this.constructor.name, a:this.a,b:this.b,threshold:this.threshold,seed:this.seed,transform:this.transform.toArray()};
+    }
 }

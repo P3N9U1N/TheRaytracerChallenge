@@ -680,3 +680,19 @@ test("An arbitrary view transformation",
     expect(t.equals(m )).toBeTruthy();
 }
 );
+
+test("Serialize",
+()=>
+{
+    var m= new Matrix4x4(
+        [
+            [-0.50709,0.50709,0.67612,-2.36643],
+            [0.76772,0.60609,0.12122,-2.82843],
+            [-0.35857,0.59761,-0.71714,6],
+            [3,4,5,1],
+        ]
+    ); 
+    var m2= new Matrix4x4(m.serialize());
+    expect(m.equals(m2)).toBeTruthy();
+}
+);
