@@ -8,7 +8,7 @@ export abstract class Pattern
 {
     private static tempMatrix1 = new Matrix4x4();
 
-    private inverseTransform: Matrix4x4;
+    protected inverseTransform: Matrix4x4;
     private _transform: Matrix4x4;
     /**
      * Transformation matrix. Call setter after change for updating inverse.
@@ -32,8 +32,8 @@ export abstract class Pattern
       return this.patternAt(patternPoint);
     }
 
-    protected abstract patternAt(point:Tuple):Color
-
+    public abstract patternAt(point:Tuple):Color
+    public abstract toObject():any
 }
 
 
@@ -187,5 +187,33 @@ export class PerlinPattern extends Pattern
 
     toObject() {
       return { type:this.constructor.name, a:this.a,b:this.b,threshold:this.threshold,seed:this.seed,transform:this.transform.toArray()};
+    }
+}
+
+export class CompositePattern extends Pattern
+{
+
+   
+    constructor(public pattern1:Pattern, public pattern2:Pattern) 
+    {
+        super(Matrix4x4.IDENTITY_MATRIX.clone());
+    }
+
+    patternAtShape(object:IShape,worldPoint:Tuple):Color
+    {
+      var objectPoint=object.inverseTransform.multiply(worldPoint);
+      var patternPoint= this.inverseTransform.multiply(objectPoint);
+
+      return this.pattern1.patternAtShape(object,worldPoint).add(this.pattern2.patternAtShape(object,worldPoint)).multiply(0.5);
+      
+    }
+
+    patternAt(point:Tuple):Color
+    { 
+      return null;
+    }
+
+    toObject() {
+      return { type:this.constructor.name, pattern1:this.pattern1.toObject(),pattern2:this.pattern2.toObject()};
     }
 }

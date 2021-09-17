@@ -36,6 +36,17 @@ export class Intersections extends ObjectPool<Intersection> {
         }
         return hit;
     }
+    /**
+     * Get hit in a sorted intersections list
+    */
+    firstHit()
+    {       
+        for (var i = 0; i < this._length; i++) {
+            var item = this.items[i];
+            if (item.t > 0) return item;
+        }
+        return null;
+    }
     sort(): void {       
         mergeSortInplace(this.items,Intersections.sortIntersection,0,this._length);
         for (var i = 0; i < this._length; i++) {

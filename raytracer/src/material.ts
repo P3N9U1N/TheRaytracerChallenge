@@ -12,6 +12,9 @@ export class Material
     specular:number=0.9;
     shininess:number=200;
     pattern:Pattern=null;
+    reflective:number=0;
+    transparency:number=0;
+    refractiveIndex:number=1;
     
     constructor(public id:number=-1)
     {

@@ -1,13 +1,15 @@
 import { Color } from "raytracer/color";
 import { Computations } from "raytracer/computations";
-import { Intersection } from "raytracer/intersection";
+import { Intersection, Intersections } from "raytracer/intersection";
 import { Material } from "raytracer/material";
 import { Matrix4x4 } from "raytracer/matrix";
+import { Plane } from "raytracer/plane";
 import { PointLight } from "raytracer/pointLight";
 import { Ray } from "raytracer/ray";
 import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
 import { World } from "raytracer/world";
+import { TestPattern } from "./pattern.test";
 
 function defaultWorld(): World
 {
@@ -141,4 +143,196 @@ test("There is no shadow when an object is behind the point",
         var p = Tuple.point(-2,2,-2);  
         expect( w.isShadowed(p) ).toBeFalsy();
     }
+);
+
+test("The reflected color for a nonreflective material",
+    () => {     
+        var w = defaultWorld();
+        var shape = w.objects[1];
+        shape.material.ambient=1;
+        
+        var r= new Ray(Tuple.point(0,0,0),Tuple.vector(0,0,1) );
+        var i = new Intersection(1,shape);
+        var comps=Computations.prepare(i,r);
+        var color=w.reflectedColor(comps,1); 
+        expect( color.equals(new Color(0,0,0))).toBeTruthy();
+    }
+);
+
+test("The reflected color for a reflective material",
+    () => {     
+        var w = defaultWorld();
+        var material = new Material(0);
+        material.reflective=0.5;
+        var shape = new Plane(0,Matrix4x4.translation(0,-1,0),material);
+        w.objects.push(shape);
+        var r= new Ray(Tuple.point(0,0,-3),Tuple.vector(0,-Math.sqrt(2)/2,Math.sqrt(2)/2 ) );
+        var i = new Intersection(Math.sqrt(2),shape);
+        var comps=Computations.prepare(i,r);
+        var color=w.reflectedColor(comps,1); 
+        expect( color.equals(new Color(0.19032,0.2379,0.14274))).toBeTruthy();
+    }
+);
+
+
+
+
+
+test("shadeHit with a reflective material",
+    () => {     
+        var w = defaultWorld();
+        var material = new Material(0);
+        material.reflective=0.5;
+        var shape = new Plane(0,Matrix4x4.translation(0,-1,0),material);
+        w.objects.push(shape);
+        var r= new Ray(Tuple.point(0,0,-3),Tuple.vector(0,-Math.sqrt(2)/2,Math.sqrt(2)/2 ) );
+        var i = new Intersection(Math.sqrt(2),shape);
+        var comps=Computations.prepare(i,r);
+        var color=w.shadeHit(comps,1); 
+        expect( color.equals(new Color(0.87677,0.92436,0.82918))).toBeTruthy();
+    }
+);
+
+
+test("The refracted color with an opaque surface",
+    () => {     
+        var w = defaultWorld();
+        var shape = w.objects[0];
+        
+        var r= new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1) );
+        var xs = new Intersections();
+        var o= xs.add();
+        o.t=4;
+        o.object=shape;
+        o= xs.add();
+        o.t=6;
+        o.object=shape;       
+        var comps=Computations.prepare(xs.get(0),r,xs);
+        var color=w.refractedColor(comps,5); 
+        expect( color.equals(Color.BLACK)).toBeTruthy();
+    }
+);
+
+test("The refracted color at the maximum recursive depth",
+    () => {     
+        var w = defaultWorld();
+        var shape = w.objects[0];
+        shape.material.transparency=1;
+        shape.material.refractiveIndex=1.5;
+        var r= new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1) );
+        var xs = new Intersections();
+        var o= xs.add();
+        o.t=4;
+        o.object=shape;
+        o= xs.add();
+        o.t=6;
+        o.object=shape;       
+        var comps=Computations.prepare(xs.get(0),r,xs);
+        var color=w.refractedColor(comps,0); 
+        expect( color.equals(Color.BLACK)).toBeTruthy();
+    }
+);
+test("The refracted color under total internal reflection",
+    () => {     
+        var w = defaultWorld();
+        var shape = w.objects[0];
+        shape.material.transparency=1;
+        shape.material.refractiveIndex=1.5;
+        var r= new Ray(Tuple.point(0,0,Math.sqrt(2)/2),Tuple.vector(0,1,0) );
+        var xs = new Intersections();
+        var o= xs.add();
+        o.t=-Math.sqrt(2)/2;
+        o.object=shape;
+        o= xs.add();
+        o.t=Math.sqrt(2)/2;
+        o.object=shape;       
+        var comps=Computations.prepare(xs.get(1),r,xs);
+        var color=w.refractedColor(comps,5); 
+        expect( color.equals(Color.BLACK)).toBeTruthy();
+    }
+);
+
+test("The refracted color with a refracted ray",
+    () => {     
+        var w = defaultWorld();
+        var a = w.objects[0];
+        a.material.ambient=1;
+        a.material.pattern=new TestPattern(Matrix4x4.IDENTITY_MATRIX.clone());
+        var b=w.objects[1];
+        b.material.transparency=1;
+        b.material.refractiveIndex=1.5;
+        var r= new Ray(Tuple.point(0,0,0.1),Tuple.vector(0,1,0) );
+        var xs = new Intersections();
+        var o= xs.add();
+        o.t=-0.9899;
+        o.object=a;
+        o= xs.add();
+        o.t=-0.4899
+        o.object=b;   
+        o= xs.add();
+        o.t=0.4899
+        o.object=b;    
+        o= xs.add();
+        o.t=0.9899;
+        o.object=a;           
+        var comps=Computations.prepare(xs.get(2),r,xs);
+        var color=w.refractedColor(comps,5); 
+        expect( color.equals(new Color(0,0.99888,0.04725) )).toBeTruthy();
+    }
+);
+
+
+test("shadeHit with a transparent material",
+    () => {     
+        var w = defaultWorld();
+        var m=new Material(0);
+        m.transparency=0.5;
+        m.refractiveIndex=1.5;
+        var floor = new Plane(0,Matrix4x4.translation(0,-1,0),m)
+        w.objects.push(floor);
+
+        var m2 = new Material(1);
+        m2.color= new Color(1,0,0);
+        m2.ambient=0.5;
+        var ball= new Sphere(1,Matrix4x4.translation(0,-3.5,-0.5),m2);
+        w.objects.push(ball);
+
+        var r= new Ray(Tuple.point(0,0,-3),Tuple.vector(0,-Math.sqrt(2)/2,Math.sqrt(2)/2) );
+        var xs = new Intersections();
+        var o= xs.add();
+        o.t=Math.sqrt(2);
+        o.object=floor;       
+
+        var comps=Computations.prepare(xs.get(0),r,xs);
+        var color=w.shadeHit(comps,5); 
+        expect( color.equals(new Color(0.93642,0.68642,0.68642))).toBeTruthy();
+    }
+);
+
+test("shadeHit with a reflective, transparent material",
+() => {     
+    var w = defaultWorld();
+    var m=new Material(0);
+    m.transparency=0.5;
+    m.refractiveIndex=1.5;
+    m.reflective=0.5;
+    var floor = new Plane(0,Matrix4x4.translation(0,-1,0),m)
+    w.objects.push(floor);
+
+    var m2 = new Material(1);
+    m2.color= new Color(1,0,0);
+    m2.ambient=0.5;
+    var ball= new Sphere(1,Matrix4x4.translation(0,-3.5,-0.5),m2);
+    w.objects.push(ball);
+
+    var r= new Ray(Tuple.point(0,0,-3),Tuple.vector(0,-Math.sqrt(2)/2,Math.sqrt(2)/2) );
+    var xs = new Intersections();
+    var o= xs.add();
+    o.t=Math.sqrt(2);
+    o.object=floor;       
+
+    var comps=Computations.prepare(xs.get(0),r,xs);
+    var color=w.shadeHit(comps,5); 
+    expect( color.equals(new Color(0.93391,0.69643,0.69243))).toBeTruthy();
+}
 );

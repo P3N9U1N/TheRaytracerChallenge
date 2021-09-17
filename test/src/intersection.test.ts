@@ -5,6 +5,8 @@ import { Tuple } from "raytracer/tuple";
 import { Computations } from "raytracer/computations";
 import { Matrix4x4 } from "raytracer/matrix";
 import { EPSILON } from "raytracer/constants";
+import { Material } from "raytracer/material";
+import { Plane } from "raytracer/plane";
 describe("Intersections",
 ()=>
 {
@@ -199,4 +201,164 @@ describe("Intersections",
    
     }
     );
+
+    test("Precomputing the reflection vector"
+    ,()=>{
+     var shape = new Plane(1);
+     var ray = new Ray(Tuple.point(0,1,-1),Tuple.vector(0,-Math.sqrt(2) / 2,Math.sqrt(2) / 2));
+     var i = new Intersection(Math.sqrt(2),shape); 
+     var comps= Computations.prepare(i,ray);   
+     expect(comps.reflectv.equals(Tuple.vector(0,Math.sqrt(2) / 2,Math.sqrt(2) / 2))).toBeTruthy();
+   
+    }
+    );
+
+
+    function glassSphere()
+    {
+        var m= new Material();
+        m.transparency=1;
+        m.refractiveIndex=1.5;
+        var s = new Sphere(1,undefined,m);
+        return s;
+    }
+
+
+    test("Finding n1 and n2 at various intersections"
+    ,()=>{
+       var a= glassSphere();
+       a.transform=Matrix4x4.scaling(2,2,2);
+       a.material.refractiveIndex=1.5;
+       var b= glassSphere();
+       b.transform=Matrix4x4.translation(0,0,-0.25);
+       b.material.refractiveIndex=2.0;
+       var c= glassSphere();
+       c.transform=Matrix4x4.translation(0,0,0.25);
+       c.material.refractiveIndex=2.5;
+       var r= new Ray(Tuple.point(0,0,-4),Tuple.vector(0,0,1));
+       var xs= new Intersections();
+       var i=xs.add();
+       i.t=2;
+       i.object=a;
+       i=xs.add();
+       i.t=2.75;
+       i.object=b;
+       i=xs.add();
+       i.t=3.25;
+       i.object=c;
+       i=xs.add();
+       i.t=4.75;
+       i.object=b;
+       i=xs.add();
+       i.t=5.25;
+       i.object=c;
+       i=xs.add();
+       i.t=6;
+       i.object=a;
+       
+       var results=[
+           [1,1.5 ],
+           [1.5,2.0 ],
+           [2,2.5 ],
+           [2.5,2.5 ],
+           [2.5,1.5 ],
+           [1.5, 1.0],
+       ]
+       for (var x=0;x<xs.length;x++)
+       {
+         var result= Computations.prepare(xs.get(x),r,xs)
+         expect(result.n1).toBeCloseTo(results[x][0]);
+         expect(result.n2).toBeCloseTo(results[x][1]);
+       }
+    }
+    );
+
+    test("The under point is offset below the surface"
+    ,()=>{
+     var shape = glassSphere();
+     shape.transform=Matrix4x4.translation(0,0,1);
+     var r = new Ray(Tuple.point(0,0,-5),Tuple.vector(0,0,1));     
+     var xs =new Intersections();
+     var i=xs.add();
+     i.t=5;
+     i.object=shape;
+     var comps= Computations.prepare(i,r,xs);
+     expect(comps.underPoint.z).toBeGreaterThan(EPSILON/2);
+     expect(comps.point.z).toBeLessThan(comps.underPoint.z);
+    }
+    );
+
+
+    test("The Schlick approximation under total internal reflection "
+    ,()=>{
+     var shape = glassSphere();
+     
+     var r = new Ray(Tuple.point(0,0,Math.sqrt(2)/2),Tuple.vector(0,1,0));     
+     var xs =new Intersections();
+     var i=xs.add();
+     i.t=-Math.sqrt(2)/2;
+     i.object=shape;
+     i=xs.add();
+     i.t=Math.sqrt(2)/2;
+     i.object=shape;
+
+     var comps= Computations.prepare(xs.get(1),r,xs);
+     var reflectance =comps.schlick();
+     expect(reflectance).toBeCloseTo(1);
+    }
+    );
+
+    test("The Schlick approximation with a perpendicular viewing angle"
+    ,()=>{
+     var shape = glassSphere();
+     
+     var r = new Ray(Tuple.point(0,0,0),Tuple.vector(0,1,0));     
+     var xs =new Intersections();
+     var i=xs.add();
+     i.t=-1;
+     i.object=shape;
+     i=xs.add();
+     i.t=1;
+     i.object=shape;
+
+     var comps= Computations.prepare(xs.get(1),r,xs);
+     var reflectance =comps.schlick();
+     expect(reflectance).toBeCloseTo(0.04);
+    }
+    );
+
+    function sortTest(count:number)
+    {
+        var xs =new Intersections();
+        var n:number[]=[];
+        for (var co=0;co<100;co++)
+        {
+          var r=Math.random()*500;
+          n.push(r);
+          var o=xs.add();
+          o.t = r;
+          o.object=new Sphere(co);
+        }        
+        n.sort((a, b) => a - b);
+        xs.sort();
+
+        for (var co=0;co<n.length;co++)
+        {
+            var a= n[co];
+            var b= xs.get(co).t
+            expect(a).toBeCloseTo(b);
+        }
+    }
+    test("sorting"
+    ,()=>{
+      sortTest(100);
+      sortTest(64);
+      sortTest(65);
+      sortTest(63);
+      sortTest(62);
+      sortTest(66);
+    }
+    );
+
+
 })

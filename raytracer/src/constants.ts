@@ -1,1 +1,1 @@
-export var EPSILON: number = 0.00001;
+export var EPSILON: number = 0.0001;

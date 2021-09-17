@@ -141,8 +141,21 @@ export class Matrix {
         }
         return m;
     }
- 
+    
+    serialize():number[][]
+    {
+        var arr:number[][] = new Array(this.height);
 
+        for (var y = 0; y < this.height; y++) {
+            var c= new Array(this.width);
+            arr[y]= c;
+            for (var x = 0; x < this.width; x++) {
+              c[x]=this.get(y,x);
+            }
+        }
+      return arr;
+    }
+    
     equals(matrix: Matrix): boolean {
         if (this.width != matrix.width || this.height != matrix.height) return false;
         for (var i = 0; i < this.data.length; i++) {
@@ -356,6 +369,7 @@ export class Matrix4x4 extends Matrix
           super(4 ,4);
         }
     }
+
     transpose(target:Matrix4x4 =new Matrix4x4()):Matrix4x4
     {
         var swap:number;      

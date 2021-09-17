@@ -21,11 +21,11 @@ export class RenderJob
      
     }
 
-    start(world:World,camera:Camera)
+    start(world:World,camera:Camera,workerScale:number =1)
     {  
       var serializedWorld=serializeWorld(world);
       var serializedCamera=serializeCamera(camera);
-      var batchSize=Math.floor(camera.vsize/this.numberOfWorkers);
+      var batchSize=Math.floor(camera.vsize/this.numberOfWorkers/workerScale);
       var y=0;
       var done=false;
       do

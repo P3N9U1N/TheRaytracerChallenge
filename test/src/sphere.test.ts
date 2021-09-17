@@ -2,6 +2,8 @@ import { Ray } from "raytracer/ray";
 import { Tuple } from "raytracer/tuple";
 import { Sphere } from "raytracer/sphere";
 import { Matrix4x4 } from "raytracer/matrix";
+import { Material } from "raytracer/material";
+
 test("A ray intersects a sphere at 2 points",
     () => {
 

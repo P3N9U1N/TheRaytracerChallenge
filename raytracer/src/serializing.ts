@@ -1,7 +1,7 @@
 import { Camera } from "./camera";
 import { Color } from "./color";
 import { Matrix4x4 } from "./matrix";
-import { Pattern, Checker3DPattern4Sphere, StripePattern, GradientPattern, RingPattern, Checker3dPattern, PerlinPattern } from "./patterns";
+import { Pattern, Checker3DPattern4Sphere, StripePattern, GradientPattern, RingPattern, Checker3dPattern, PerlinPattern, CompositePattern } from "./patterns";
 import { Plane } from "./plane";
 import { PointLight } from "./pointLight";
 import { Sphere } from "./sphere";
@@ -41,12 +41,16 @@ export function deSerializeMaterial(obj:any):Material
   m.pattern= deSerializePattern(obj.pattern);
   m.shininess= deserializeNumber(obj.shininess);
   m.specular= deserializeNumber(obj.specular);
+  m.reflective= deserializeNumber(obj.reflective);
+  m.transparency= deserializeNumber(obj.transparency);
+  m.refractiveIndex= deserializeNumber(obj.refractiveIndex);
+
  return m;
 }
 
 export function deSerializePattern(obj:any):Pattern
 {
-  if (obj==null) throw new Error();
+  if (obj==null) return null;
   var type = deserializeString(obj.type);
   switch(type)
   { 
@@ -71,7 +75,9 @@ export function deSerializePattern(obj:any):Pattern
     case StripePattern.name:
       var p6= new StripePattern(deserializeColor(obj.a),deserializeColor(obj.b),deserializeMatrix4x4(obj.transform))
       return p6;
-
+    case CompositePattern.name:
+      var p7= new CompositePattern(deSerializePattern(obj.pattern1), deSerializePattern(obj.pattern2))
+      return p7;
   }
   throw new Error();
  
@@ -81,7 +87,7 @@ export function deSerializePattern(obj:any):Pattern
 
 export function deserializeMatrix4x4(obj:any):Matrix4x4
 {
-  if (obj==null) throw new Error();
+  if (obj==null) return Matrix4x4.IDENTITY_MATRIX.clone();
   var array=deSerializeArray(obj,(x)=>deSerializeArray(x,deserializeNumber));
   var w= new Matrix4x4(array); 
  return w;
@@ -168,7 +174,7 @@ export function serializeCamera(camera:Camera):any
 
 export function serializePattern(pattern:Pattern)
 {
-  return (<any> pattern)["toObject"]();  
+  return pattern==null?null: pattern.toObject();  
 }
 
 export function serializeMaterial(material:Material)

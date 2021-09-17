@@ -6,7 +6,7 @@
  * @param right right array boundary exclusive
  */
  function mergeInplace<T>(items: T[], compareFn: (a: T,b: T )=> number,left:number,middle:number, right:number) {
-    if (right==middle) return;
+    if (right<=middle) return;
     for (var i = left; i < middle;i++) {
          
         var minRight=items[middle];

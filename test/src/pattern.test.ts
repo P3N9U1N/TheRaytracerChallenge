@@ -4,9 +4,12 @@ import { Pattern } from "raytracer/patterns";
 import { Sphere } from "raytracer/sphere";
 import { Tuple } from "raytracer/tuple";
 
-class TestPattern extends Pattern
+export class TestPattern extends Pattern
 {
-    protected patternAt(point: Tuple): Color {
+    public toObject() {
+        throw new Error("Method not implemented.");
+    }
+    patternAt(point: Tuple): Color {
        return new Color(point.x,point.y,point.z);
     }
 
